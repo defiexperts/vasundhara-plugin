@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "CSV Form Filler",
+  "name": "Maji Vasundhara Form Filler",
   "version": "1.0",
   "permissions": [
     "storage",

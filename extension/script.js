@@ -13,6 +13,12 @@ chrome.runtime.onMessage.addListener(async function (
       "csvDataIndex",
       parseInt(localStorage.getItem("csvDataIndex")) + 1
     );
+  } else if (request.action === "prevSate") {
+    console.log("🚀 ~ request.action:", request.action);
+    localStorage.setItem(
+      "csvDataIndex",
+      parseInt(localStorage.getItem("csvDataIndex")) - 1
+    );
   }
 
   const jsonParseData = JSON.parse(localStorage.getItem("csvData"));
@@ -27,7 +33,6 @@ chrome.runtime.onMessage.addListener(async function (
 
   formSubmitBtn.addEventListener("click", function (event) {
     // formSubmitBtn.checkValidity()
-
     var newURL = "https://majhivasundhara.in/en/pledge/MQ%3D%3D";
     window.open(newURL, "_blank").focus();
     // filledDataForm(jsonData);

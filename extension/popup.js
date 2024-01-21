@@ -1,7 +1,9 @@
+// chrome.tabs.executeScript({
+//   file: "script.js",
+// });
 document.addEventListener("DOMContentLoaded", function () {
   const submitBtn = document.getElementById("submitBtn");
   // const csvFileInput = document.getElementById("csvFile");
-
   submitBtn.addEventListener("click", function () {
     const fileInput = document.getElementById("csvFile");
     const csvFile = fileInput.files[0];
@@ -17,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       console.log("🚀 ~ reader.onload= ~ formData:", formData);
 
-      console.log("🚀 ~ file:", formData);
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const activeTab = tabs[0];
         console.log("🚀 ~ activeTab:", activeTab);
@@ -26,15 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
           formData,
         });
       });
-      chrome.tabs.executeScript({
-        file: "script.js",
-      });
     };
+    submitBtn.disabled = true;
     reader.readAsText(csvFile);
   });
 
   const nextBtn = document.getElementById("nextBtn");
-
   nextBtn.addEventListener("click", function () {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const activeTab = tabs[0];
@@ -42,5 +40,21 @@ document.addEventListener("DOMContentLoaded", function () {
         action: "nextSate",
       });
     });
+  });
+
+  const prevBtn = document.getElementById("prevBtn");
+
+  prevBtn.addEventListener("click", function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, {
+        action: "prevSate",
+      });
+    });
+  });
+
+  const csvFile = document.getElementById("csvFile");
+  csvFile.addEventListener("click", function () {
+    submitBtn.disabled = false;
   });
 });
