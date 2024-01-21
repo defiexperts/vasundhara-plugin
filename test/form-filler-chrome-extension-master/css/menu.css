@@ -1,0 +1,33 @@
+.hide {
+    display: none;
+}
+
+#formMenu {
+  background: #fff;
+  font-size: 14px;
+
+  position: absolute;
+  z-index: 1000;
+  padding: 5px 0;
+
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+  border-radius: 5px;
+  border: #eee 1px solid;
+}
+
+#formMenu ul {
+  min-width: 100px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#formMenu li{
+  list-style: none;
+  padding: 6px 8px;
+}
+
+#formMenu li:hover {
+  cursor: default;
+  background-color: #e8e8e9;
+}
