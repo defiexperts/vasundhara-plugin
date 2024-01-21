@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const activeTab = tabs[0];
         console.log("🚀 ~ activeTab:", activeTab);
-        chrome.tabs.sendMessage(activeTab.id, {
+        chrome.tabs.sendMessage(activeTab.id + 1, {
           action: "intialState",
           formData,
         });
