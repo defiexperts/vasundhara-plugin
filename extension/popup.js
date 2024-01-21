@@ -17,23 +17,33 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       console.log("🚀 ~ reader.onload= ~ formData:", formData);
 
-      for (const rowData of formData) {
-        console.log("🚀 ~ file:", rowData);
-        chrome.tabs.query(
-          { active: true, currentWindow: true },
-          function (tabs) {
-            const activeTab = tabs[0];
-            chrome.tabs.sendMessage(activeTab.id, {
-              action: "startFilling",
-              rowData,
-            });
-          }
-        );
-        chrome.tabs.executeScript({
-          file: "script.js",
+      console.log("🚀 ~ file:", formData);
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        const activeTab = tabs[0];
+        console.log("🚀 ~ activeTab:", activeTab);
+        chrome.tabs.sendMessage(activeTab.id, {
+          action: "intialState",
+          formData,
         });
-      }
+      });
+      chrome.tabs.executeScript({
+        file: "script.js",
+      });
     };
     reader.readAsText(csvFile);
+  });
+
+  const nextBtn = document.getElementById("nextBtn");
+
+  nextBtn.addEventListener("click", function () {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, {
+        action: "nextSate",
+      });
+    });
+    chrome.tabs.executeScript({
+      file: "script.js",
+    });
   });
 });

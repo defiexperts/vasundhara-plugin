@@ -3,13 +3,48 @@ chrome.runtime.onMessage.addListener(async function (
   sender,
   sendResponse
 ) {
-  if (request.action === "redirect") {
-    console.log("now redirect to old URL");
+  if (request.action === "intialState") {
+    localStorage.setItem("csvData", JSON.stringify(request.formData));
+    localStorage.setItem("csvDataIndex", 0);
+    console.log("🚀 ~ reader.onload= ~ request.formData:", request.formData);
+  } else if (request.action === "nextSate") {
+    console.log("🚀 ~ request.action:", request.action);
+    localStorage.setItem(
+      "csvDataIndex",
+      parseInt(localStorage.getItem("csvDataIndex")) + 1
+    );
   }
 
-  const data = request.rowData;
-  console.log("🚀 ~ request:", data);
+  const jsonParseData = JSON.parse(localStorage.getItem("csvData"));
+  const jSONIndex = parseInt(localStorage.getItem("csvDataIndex"));
+  const jsonData = jsonParseData[jSONIndex];
 
+  const data = jsonData;
+
+  filledDataForm(data);
+
+  // const formSubmitBtn = document.getElementById("individual");
+
+  // formSubmitBtn.addEventListener("click", function (event) {
+  //   // formSubmitBtn.checkValidity()
+
+  //   var newURL = "https://majhivasundhara.in/en/pledge/MQ%3D%3D";
+  //   // window.open(newURL, "_blank").focus();
+  //   localStorage.setItem(
+  //     "csvDataIndex",
+  //     parseInt(localStorage.getItem("csvDataIndex")) + 1
+  //   );
+  //   const jsonParseData = JSON.parse(localStorage.getItem("csvData"));
+  //   console.log("🚀 ~ jsonParseData:", jsonParseData);
+  //   const jSONIndex = parseInt(localStorage.getItem("csvDataIndex"));
+  //   console.log("🚀 ~ jSONIndex:", jSONIndex);
+  //   const jsonData = jsonParseData[jSONIndex];
+  //   console.log("🚀 ~ jsonData:", jsonData);
+  //   // filledDataForm(jsonData);
+  // });
+});
+
+function filledDataForm(data) {
   let element = document.getElementById("country");
   element.value = data.country;
   element.dispatchEvent(new Event("change"));
@@ -26,14 +61,12 @@ chrome.runtime.onMessage.addListener(async function (
     fillField(document.querySelector('input[name="living_in"]'), data.rd_city);
     setTimeout(() => {
       let element3 = document.getElementById("city");
-      [...element3.children].map((e) => console.log(e.value));
       element3.value = data.city;
       element3.dispatchEvent(new Event("change", { bubbles: true }));
     }, 1000);
   }, 500);
 
   let element3 = document.getElementsByName("pledge[]")[0];
-  console.log("🚀 ~ element3:", element3);
   element3.value = Math.floor(Math.random() * 3 + 1);
   element3.dispatchEvent(new Event("change", { bubbles: true }));
 
@@ -64,19 +97,7 @@ chrome.runtime.onMessage.addListener(async function (
   //   console.log("🚀 ~ csvData:", csvData);
   //   // Your CSV parsing and form-filling logic here
   // });
-
-  // const formSubmitBtn = document.getElementById("individual");
-
-  // formSubmitBtn.addEventListener("click", function (event) {
-  //   // formSubmitBtn.checkValidity()
-  //   console.log(
-  //     "🚀 ~ formSubmitBtn.checkValidity():",
-  //     formSubmitBtn.checkValidity()
-  //   );
-  //   var newURL = "https://majhivasundhara.in/en/pledge/MQ%3D%3D";
-  //   chrome.tabs.create({ url: newURL });
-  // });
-});
+}
 
 function fillField(field, value) {
   if (field) {
