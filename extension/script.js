@@ -42,6 +42,7 @@ chrome.runtime.onMessage.addListener(async function (
   //   console.log("🚀 ~ jsonData:", jsonData);
   //   // filledDataForm(jsonData);
   // });
+  return true;
 });
 
 function filledDataForm(data) {
