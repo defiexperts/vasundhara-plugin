@@ -23,25 +23,15 @@ chrome.runtime.onMessage.addListener(async function (
 
   filledDataForm(data);
 
-  // const formSubmitBtn = document.getElementById("individual");
+  const formSubmitBtn = document.getElementById("individual");
 
-  // formSubmitBtn.addEventListener("click", function (event) {
-  //   // formSubmitBtn.checkValidity()
+  formSubmitBtn.addEventListener("click", function (event) {
+    // formSubmitBtn.checkValidity()
 
-  //   var newURL = "https://majhivasundhara.in/en/pledge/MQ%3D%3D";
-  //   // window.open(newURL, "_blank").focus();
-  //   localStorage.setItem(
-  //     "csvDataIndex",
-  //     parseInt(localStorage.getItem("csvDataIndex")) + 1
-  //   );
-  //   const jsonParseData = JSON.parse(localStorage.getItem("csvData"));
-  //   console.log("🚀 ~ jsonParseData:", jsonParseData);
-  //   const jSONIndex = parseInt(localStorage.getItem("csvDataIndex"));
-  //   console.log("🚀 ~ jSONIndex:", jSONIndex);
-  //   const jsonData = jsonParseData[jSONIndex];
-  //   console.log("🚀 ~ jsonData:", jsonData);
-  //   // filledDataForm(jsonData);
-  // });
+    var newURL = "https://majhivasundhara.in/en/pledge/MQ%3D%3D";
+    window.open(newURL, "_blank").focus();
+    // filledDataForm(jsonData);
+  });
   return true;
 });
 
